@@ -20,3 +20,5 @@ ignition/deployments/chain-31337
 # remove the node_modules folder from the frontend folder
 frontend/node_modules
 frontend/.env
+scripts/bot/node_modules
+scripts/bot/.env
