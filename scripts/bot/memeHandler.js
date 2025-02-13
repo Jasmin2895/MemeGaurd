@@ -7,7 +7,6 @@ AWS.config.update({
 async function handleMemeCommand(ctx) {
   const prompt = ctx.message.text.split(" ").slice(1).join(" ");
 
-  console.log(prompt);
   const lambda = new AWS.Lambda({ region: "us-east-1" });
   const params = {
     FunctionName: "memeGenerator",

@@ -6,7 +6,6 @@ const {
 const bedrock = new BedrockRuntimeClient({ region: "us-east-1" });
 
 async function generateMeme(event) {
-  console.log("event", event);
   const prompt = "A futuristic cityscape with neon lights, ultra-detailed";
 
   const requestPayload = {

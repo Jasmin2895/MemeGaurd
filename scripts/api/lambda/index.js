@@ -4,10 +4,8 @@ const { ethers } = require("ethers");
 
 exports.handler = async (event) => {
   const prompt = event.prompt;
-  console.log(prompt);
   const meme = await generateMeme(prompt);
 
-  console.log(meme);
   const ipfsHash = await uploadToIpfs(meme);
 
   const nftContractAddress = process.env.NFT_CONTRACT_ADDRESS;

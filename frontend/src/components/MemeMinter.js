@@ -28,11 +28,9 @@ export default function MemeMinter() {
         Payload: JSON.stringify({ prompt }),
       };
 
-      console.log("params", params);
 
       const data = await lambda.invoke(params).promise();
       const response = JSON.parse(data.Payload);
-      console.log("response", response);
 
       if (response.statusCode === 200) {
         const responseBody = JSON.parse(response.body);
@@ -56,7 +54,7 @@ export default function MemeMinter() {
         <div className="text-center mb-4">
           {memeUrl ? (
             <img
-              src={`https://salmon-obedient-wildcat-883.mypinata.cloud/ipfs/${memeUrl}`}
+              src={`${process.env.REACT_APP_PINATA_URL}/${memeUrl}`}
               alt="Generated Meme"
               className="img-fluid rounded mb-3"
               style={{ width: "400px", height: "400px", objectFit: "cover" }}
