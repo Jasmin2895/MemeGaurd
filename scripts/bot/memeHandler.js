@@ -1,7 +1,7 @@
 const AWS = require("aws-sdk");
 AWS.config.update({
-  accessKeyId: process.env.AWS_ACCESS_KEY,
-  secretAccessKey: process.env.AWS_SECRET_KEY,
+  accessKeyId: process.env.TELEGRAM_BOT_AWS_ACCESS_KEY,
+  secretAccessKey: process.env.TELEGRAM_BOT_AWS_SECRET_KEY,
 });
 
 async function handleMemeCommand(ctx) {
@@ -21,7 +21,7 @@ async function handleMemeCommand(ctx) {
     const transactionHash = JSON.parse(payload.body).transactionHash;
 
     ctx.reply(
-      `Meme generated! Meme Link - ${process.env.PINATA_URL}/${cId}, Transaction Hash - ${transactionHash}`
+      `Meme generated! Meme Link - ${process.env.TELEGRAM_BOT_PINATA_URL}/${cId}, Transaction Hash - ${transactionHash}`
     );
   });
 }
