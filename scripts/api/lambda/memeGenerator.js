@@ -2,14 +2,14 @@ const {
   BedrockRuntimeClient,
   InvokeModelCommand,
 } = require("@aws-sdk/client-bedrock-runtime");
+const FormData = require("form-data");
+const { PassThrough } = require("stream");
 
 const bedrock = new BedrockRuntimeClient({ region: "us-east-1" });
 
 async function generateMeme(event) {
-  const prompt = "A futuristic cityscape with neon lights, ultra-detailed";
-
   const requestPayload = {
-    text_prompts: [{ text: prompt }],
+    text_prompts: [{ text: event }],
     cfg_scale: 8,
     seed: 42,
     steps: 50,

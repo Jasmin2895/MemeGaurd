@@ -3,13 +3,23 @@ const { uploadToIpfs } = require("./ipfsUploader");
 const { ethers } = require("ethers");
 
 exports.handler = async (event) => {
-  const prompt = event.prompt;
+  const { prompt, safeAddress } = event;
+
+  if (!prompt || !safeAddress) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({
+        error:
+          "Missing required fields: contentData, contentType, or safeAddress",
+      }),
+    };
+  }
+
   const meme = await generateMeme(prompt);
 
   const ipfsHash = await uploadToIpfs(meme);
 
   const nftContractAddress = process.env.NFT_CONTRACT_ADDRESS;
-  const safeAddress = process.env.SAFE_ADDRESS;
   const privateKey = process.env.PRIVATE_KEY;
   const provider = new ethers.JsonRpcProvider(process.env.SEPOLIA_RPC_URL);
   const wallet = new ethers.Wallet(privateKey, provider);
