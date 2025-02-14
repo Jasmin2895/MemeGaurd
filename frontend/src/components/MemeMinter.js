@@ -14,6 +14,7 @@ export default function MemeMinter() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [prompt, setPrompt] = useState("");
+  const [safeAddress, setSafeAddress] = useState(""); // New state for Safe address
 
   const mintNFT = async () => {
     setLoading(true);
@@ -25,9 +26,8 @@ export default function MemeMinter() {
       const lambda = new AWS.Lambda({ region: "us-east-1" });
       const params = {
         FunctionName: "memeGenerator",
-        Payload: JSON.stringify({ prompt }),
+        Payload: JSON.stringify({ prompt, safeAddress }), // Pass Safe address to Lambda
       };
-
 
       const data = await lambda.invoke(params).promise();
       const response = JSON.parse(data.Payload);
@@ -80,9 +80,24 @@ export default function MemeMinter() {
           />
         </div>
 
+        {/* New Safe Address Input Field */}
+        <div className="form-group mb-3">
+          <label htmlFor="safeAddress" className="form-label">
+            Enter Safe Address
+          </label>
+          <input
+            type="text"
+            id="safeAddress"
+            className="form-control"
+            placeholder="e.g., 0x1234..."
+            value={safeAddress}
+            onChange={(e) => setSafeAddress(e.target.value)}
+          />
+        </div>
+
         <button
           onClick={mintNFT}
-          disabled={loading || !prompt}
+          disabled={loading || !prompt || !safeAddress} // Disable if Safe address is empty
           className={`btn btn-primary w-100 ${loading ? "disabled" : ""}`}
         >
           {loading ? (
@@ -98,12 +113,12 @@ export default function MemeMinter() {
               <strong>Transaction Hash: {txHash}</strong>
             </p>
             <a
-              href={`https://sepolia.etherscan.io/`}
+              href={`https://sepolia.etherscan.io/tx/${txHash}`}
               target="_blank"
               rel="noopener noreferrer"
               className="text-info"
             >
-              Check on Sepolia Ethercan IO
+              Check on Sepolia Etherscan
             </a>
           </div>
         )}
