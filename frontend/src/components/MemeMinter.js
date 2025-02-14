@@ -83,7 +83,7 @@ export default function MemeMinter() {
         {/* New Safe Address Input Field */}
         <div className="form-group mb-3">
           <label htmlFor="safeAddress" className="form-label">
-            Enter Safe Address
+            Enter Safe Wallet Address
           </label>
           <input
             type="text"
