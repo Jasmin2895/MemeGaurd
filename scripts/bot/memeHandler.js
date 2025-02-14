@@ -8,14 +8,7 @@ async function handleMemeCommand(ctx) {
   // Extract prompt and Safe address from the user's message
   const inputText = ctx.message.text.split(" ").slice(1).join(" ");
 
-  // Split the input text by the pipe character (|)
   const [prompt, safeAddress] = inputText.split("|").map((s) => s.trim());
-
-  // console.log("messageText", messageText);
-  // const [safeAddress, ...promptParts] = messageText
-  //   .split("|")
-  //   .map((s) => s.trim());
-  // const prompt = promptParts.join(" ");
 
   console.log("safeAddress", safeAddress, prompt);
 
